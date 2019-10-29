@@ -1,0 +1,59 @@
+version: '3.2'
+
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    restart: always
+    volumes:
+      - type: volume
+        source: logs
+        target: /var/log
+      - type: volume
+        source: esdata1
+        target: /usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - esnet.network
+        
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.3.0
+    container_name: kibana
+    ports:
+      - 5601:5601
+    restart: always
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      SERVER_HOSTS: 0
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet.network
+
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: ElasticSearchExample/Dockerfile
+  #   container_name: api
+  #   restart: always
+  #   ports:
+  #     - "88:80"
+  #   depends_on:
+  #     - elasticsearch
+  #   networks:
+  #     - esnet.network
+
+networks:
+  esnet.network:
+    driver: bridge
+
+
+volumes:
+  esdata1:
+  logs:

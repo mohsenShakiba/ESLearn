@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESLearn.API", "src\ESLearn.API\ESLearn.API.csproj", "{9960615B-AB0A-49C0-997D-F0BDE9DF11A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESLearn.Domain", "src\ESLearn.Domain\ESLearn.Domain.csproj", "{9ADCDF18-75EC-49F7-8166-A4F281381FA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESLearn.Repository", "src\ESLearn.Repository\ESLearn.Repository.csproj", "{DAC5D665-4370-4724-A6BA-10418F551641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{4C1A413C-12DF-4F79-8A76-BDEDF0810835}"
+ProjectSection(SolutionItems) = preProject
+	docker-compose.yaml = docker-compose.yaml
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9960615B-AB0A-49C0-997D-F0BDE9DF11A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9960615B-AB0A-49C0-997D-F0BDE9DF11A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9960615B-AB0A-49C0-997D-F0BDE9DF11A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9960615B-AB0A-49C0-997D-F0BDE9DF11A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ADCDF18-75EC-49F7-8166-A4F281381FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ADCDF18-75EC-49F7-8166-A4F281381FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ADCDF18-75EC-49F7-8166-A4F281381FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ADCDF18-75EC-49F7-8166-A4F281381FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC5D665-4370-4724-A6BA-10418F551641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC5D665-4370-4724-A6BA-10418F551641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC5D665-4370-4724-A6BA-10418F551641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC5D665-4370-4724-A6BA-10418F551641}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
