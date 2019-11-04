@@ -11,6 +11,7 @@ namespace ESLearn.Domain.SeedWork
         Task RemoveAsync(T document);
         Task RemoveManyAsync(IEnumerable<T> documents);
         Task<T> QueryAsync(string id);
+        Task<IEnumerable<T>> SearchAsync(IElasticSearchQuery<T> query);
 
     }
 }

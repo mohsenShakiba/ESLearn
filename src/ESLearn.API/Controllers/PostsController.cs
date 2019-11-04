@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ELLearn.Repository.Queries;
 using ESLearn.API.DTOs;
 using ESLearn.Domain.AggregatesModel.PostsAggregate;
 using ESLearn.Domain.AggregatesModel.UsersAggregate;
@@ -22,12 +23,18 @@ namespace ESLearn.API.Controllers
             _logger = logger;
         }
         
-        [HttpGet]
-        public async Task<IActionResult> GetPost(string id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPost([FromRoute] string id)
         {
-            _logger.LogInformation($"the post with id {id} was fetched");
             var post = await _postsRepository.QueryAsync(id);
             return Ok(post);
+        }
+        
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchPosts(string term)
+        {
+            var posts = await _postsRepository.SearchAsync(new PostSearchQuery(term));
+            return Ok(posts);
         }
 
         [HttpPost("add")]

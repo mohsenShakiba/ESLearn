@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ELLearn.Repository.Extensions;
 using ESLearn.Domain.AggregatesModel.PostsAggregate;
+using ESLearn.Domain.SeedWork;
 using Nest;
 
 namespace ESLearn.Repository.Repositories
@@ -38,6 +40,12 @@ namespace ESLearn.Repository.Repositories
         {
             var result = await _elasticClient.GetAsync<Post>(id);
             return result.Source;
+        }
+
+        public async Task<IEnumerable<Post>> SearchAsync(IElasticSearchQuery<Post> query)
+        {
+            var results = await _elasticClient.SearchByQueryAsync(query);
+            return results.Documents;
         }
 
         public Task AddCommentAsync(Post post, Comment comment)

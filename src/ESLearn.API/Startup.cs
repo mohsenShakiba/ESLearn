@@ -59,7 +59,6 @@ namespace ESLearn.API
             // adding repositories
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IPostsRepository, PostsRepository>();
-            services.AddSingleton<ElasticSearchContext>();
 
             services.AddControllers();
         }
