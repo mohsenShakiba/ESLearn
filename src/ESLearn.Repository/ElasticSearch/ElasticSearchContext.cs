@@ -7,8 +7,8 @@ namespace ESLearn.Repository.ElasticSearch
 {
     public interface IElasticSearchContext
     {
-        void Configure<T>(ITypeMappingDescriptor<T> mappingDescriptor, IConfigureIndexDescriptor<T> indexDescriptor = null) where T : Entity;
-        void ConfigureDefault<T>(IConfigureIndexDescriptor<T> indexDescriptor = null) where T : Entity;
+        void Configure<T>(IIndexConfiguration<T> configuration) where T : Entity;
+        void ConfigureDefault<T>() where T : Entity;
     }
     
     public abstract class ElasticSearchContext: IElasticSearchContext
@@ -30,21 +30,23 @@ namespace ESLearn.Repository.ElasticSearch
             
         }
 
-        public void Configure<T>(ITypeMappingDescriptor<T> mappingDescriptor, IConfigureIndexDescriptor<T> indexDescriptor = null) where T: Entity
+        public void Configure<T>(IIndexConfiguration<T> configuration) where T: Entity
         {
-            _esConfiguration.DefaultMappingFor<T>(mappings => mappings.IndexName(mappingDescriptor.IndexName));
-            _elasticClient.Indices.Create(mappingDescriptor.IndexName, (id) => 
-                id.Settings(sd => indexDescriptor?.ConfigureIndex(sd) ?? sd).Map<T>( 
-                    md => md.Properties(mappingDescriptor.ConfigureMappings)
+            var analysisConfiguration = (configuration as IIndexAnalysisConfiguration<T>);
+            var mappingConfiguration = (configuration as IIndexMappingsConfiguration<T>);
+            _esConfiguration.DefaultMappingFor<T>(mappings => mappings.IndexName(configuration.IndexName));
+            _elasticClient.Indices.Create(configuration.IndexName, (id) => 
+                id.Settings(sd => sd.Analysis(ad => analysisConfiguration?.ConfigureAnalysis(ad) ?? ad)).Map<T>( 
+                    md => md.Properties(pd => mappingConfiguration?.ConfigureMapping(pd) ?? pd)
                 )
             );
         }
 
-        public void ConfigureDefault<T>(IConfigureIndexDescriptor<T> indexDescriptor = null) where T: Entity
+        public void ConfigureDefault<T>() where T: Entity
         {
             var indexName = typeof(T).Name.ToLower();
             _esConfiguration.DefaultMappingFor<T>(mappings => mappings.IndexName(indexName).IdProperty(u => u.Id));
-            _elasticClient.Indices.Create(indexName, (id) => id.Settings(sd => indexDescriptor?.ConfigureIndex(sd) ?? sd).Map<T>(m => m.AutoMap()));
+            _elasticClient.Indices.Create(indexName, (id) => id.Map<T>(m => m.AutoMap()));
         }
 
         public abstract void SetupConfiguration();

@@ -3,11 +3,11 @@ using Nest;
 
 namespace ESLearn.Repository.Mappings
 {
-    public class UserTypeMappingDescriptor: ITypeMappingDescriptor<User>
+    public class UserIndexMappingsConfiguration: IIndexMappingsConfiguration<User>
     {
         public string IndexName => "users";
 
-        public PropertiesDescriptor<User> ConfigureMappings(PropertiesDescriptor<User> descriptor)
+        public PropertiesDescriptor<User> ConfigureMapping(PropertiesDescriptor<User> descriptor)
         {
             return descriptor
                 .Text(s => s.Name(l => l.UserName))

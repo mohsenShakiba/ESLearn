@@ -7,8 +7,8 @@ namespace ESLearn.Repository.ElasticSearch
     {
         public override void SetupConfiguration()
         {
-            Configure(new UserTypeMappingDescriptor());
-            Configure(new PostTypeDescriptor(), new PostTypeDescriptor());
+            Configure(new UserIndexMappingsConfiguration());
+            Configure( new PostTypeAnalysisConfiguration());
         }
     }
 }
